@@ -19,6 +19,26 @@ This web application manages driving experiences, developed with **PHP** and **M
 - **Graphs**: **ChartJS**
 - **Security**: Prepared queries, PHP sessions
 
+## Installation
+
+1. Clone this repository to your local machine:
+
+    ```bash
+    https://github.com/AsmarAlv/driving-experience-tracker.git
+    ```
+
+2. Navigate to the project directory:
+
+    ```bash
+    cd driving-experience-tracker
+    ```
+
+3. Set up the database by importing the provided SQL schema into MySQL.
+
+4. Configure your database connection in the PHP scripts.
+
+5. Run the application on a local or remote web server.
+
 ## Deployment
 
 The app is hosted on a remote server with full access via a public URL.
