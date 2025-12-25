@@ -5,10 +5,10 @@
  */
 
 // Database credentials
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'driving_experience_db');  // Change this to your database name
-define('DB_USER', 'root');                    // Change this to your database username
-define('DB_PASS', '');                        // Change this to your database password
+define('DB_HOST', 'mysql-asmar.alwaysdata.net'); 
+define('DB_NAME', 'asmar_driving_experience_db');  
+define('DB_USER', 'asmar_drv_exp');                   
+define('DB_PASS', 'DuXyYJ5V6\/<');                        
 define('DB_CHARSET', 'utf8mb4');
 
 // Create PDO instance

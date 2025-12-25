@@ -55,29 +55,29 @@ try {
             
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="date">📅 Date *</label>
+                    <label for="date">Date <span class="required">*</span></label>
                     <input type="date" id="date" name="date" value="<?php echo $experience['date']; ?>" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="start_time">🕐 Start Time *</label>
+                    <label for="start_time">Start Time <span class="required">*</span></label>
                     <input type="time" id="start_time" name="start_time" value="<?php echo $experience['start_time']; ?>" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="finish_time">🕑 Finish Time *</label>
+                    <label for="finish_time">Finish Time <span class="required">*</span></label>
                     <input type="time" id="finish_time" name="finish_time" value="<?php echo $experience['finish_time']; ?>" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="km_traveled">📏 Kilometers *</label>
+                    <label for="km_traveled">Kilometers <span class="required">*</span></label>
                     <input type="number" id="km_traveled" name="km_traveled" step="0.1" min="0.1" max="500" value="<?php echo $experience['km_traveled']; ?>" required>
                 </div>
             </div>
             
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="weather">🌤️ Weather *</label>
+                    <label for="weather">Weather <span class="required">*</span></label>
                     <select id="weather" name="id_weatherCondition" required>
                         <?php foreach ($weather_conditions as $weather): ?>
                             <option value="<?php echo $weather['id_weatherCondition']; ?>" 
@@ -89,7 +89,7 @@ try {
                 </div>
                 
                 <div class="form-group">
-                    <label for="road_type">🛣️ Road Type *</label>
+                    <label for="road_type">Road Type <span class="required">*</span></label>
                     <select id="road_type" name="id_roadType" required>
                         <?php foreach ($road_types as $type): ?>
                             <option value="<?php echo $type['id_roadType']; ?>" 
@@ -101,7 +101,7 @@ try {
                 </div>
                 
                 <div class="form-group">
-                    <label for="road_condition">🛤️ Road Condition *</label>
+                    <label for="road_condition">Road Condition <span class="required">*</span></label>
                     <select id="road_condition" name="id_roadCondition" required>
                         <?php foreach ($road_conditions as $condition): ?>
                             <option value="<?php echo $condition['id_roadCondition']; ?>" 
@@ -113,7 +113,7 @@ try {
                 </div>
                 
                 <div class="form-group">
-                    <label for="traffic_level">🚦 Traffic *</label>
+                    <label for="traffic_level">Traffic <span class="required">*</span></label>
                     <select id="traffic_level" name="id_trafficLevel" required>
                         <?php foreach ($traffic_levels as $traffic): ?>
                             <option value="<?php echo $traffic['id_trafficLevel']; ?>" 
@@ -143,9 +143,9 @@ try {
                 </div>
             </div>
             
-            <div class="text-center mt-20">
-                <button type="submit" class="btn btn-primary">💾 Update Experience</button>
-                <a href="summary.php" class="btn btn-secondary">❌ Cancel</a>
+            <div class="text-center mt-20" style="display: flex; gap: 12px; justify-content: center; align-items: center;">
+                <button type="submit" class="btn btn-primary">Update Experience</button>
+                <a href="summary.php" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

@@ -11,6 +11,22 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }, 5000);
     });
+    
+    // Shrink navigation on scroll
+    const nav = document.querySelector('nav');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+        
+        lastScroll = currentScroll;
+    });
 });
 
 // Confirm before delete
@@ -67,4 +83,4 @@ function exportTableToCSV(filename = 'driving_experiences.csv') {
 }
 
 // Console message
-console.log('🚗 Driving Experience Tracker - Developed by Aliyeva Asmar');
+console.log('Driving Experience Tracker - Developed by Aliyeva Asmar');

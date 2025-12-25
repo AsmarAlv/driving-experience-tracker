@@ -34,11 +34,10 @@ try {
     ");
     $traffic_stats = $stmt->fetchAll();
     
-    // Daily kilometers (last 30 days)
+    // Daily kilometers (all dates, or last 30 days if too many)
     $stmt = $pdo->query("
         SELECT date, SUM(km_traveled) as total_km
         FROM drivingExperience
-        WHERE date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
         GROUP BY date
         ORDER BY date ASC
     ");
@@ -66,31 +65,31 @@ try {
     
     <!-- Weather Condition Statistics -->
     <div class="chart-container">
-        <h3>🌤️ Kilometers by Weather Condition</h3>
+        <h3>Kilometers by Weather Condition</h3>
         <canvas id="weatherChart"></canvas>
     </div>
     
     <!-- Road Type Statistics -->
     <div class="chart-container">
-        <h3>🛣️ Kilometers by Road Type</h3>
+        <h3>Kilometers by Road Type</h3>
         <canvas id="roadTypeChart"></canvas>
     </div>
     
     <!-- Traffic Level Distribution -->
     <div class="chart-container">
-        <h3>🚦 Trips by Traffic Level</h3>
+        <h3>Trips by Traffic Level</h3>
         <canvas id="trafficChart"></canvas>
     </div>
     
     <!-- Daily Kilometers Chart -->
     <div class="chart-container">
-        <h3>📅 Daily Kilometers (Last 30 Days)</h3>
+        <h3>Daily Kilometers</h3>
         <canvas id="dailyKmChart"></canvas>
     </div>
     
     <!-- Maneuvers Statistics -->
     <div class="chart-container">
-        <h3>🔄 Most Performed Maneuvers</h3>
+        <h3>Most Performed Maneuvers</h3>
         <canvas id="maneuversChart"></canvas>
     </div>
     
@@ -230,42 +229,59 @@ new Chart(trafficCtx, {
 });
 
 // Daily Kilometers Chart
-const dailyKmCtx = document.getElementById('dailyKmChart').getContext('2d');
-new Chart(dailyKmCtx, {
-    type: 'line',
-    data: {
-        labels: <?php echo json_encode(array_map(function($d) { 
-            return date('M d', strtotime($d['date'])); 
-        }, $daily_km)); ?>,
-        datasets: [{
-            label: 'Kilometers',
-            data: <?php echo json_encode(array_column($daily_km, 'total_km')); ?>,
-            backgroundColor: 'rgba(99, 102, 241, 0.2)',
-            borderColor: 'rgba(99, 102, 241, 1)',
-            borderWidth: 3,
-            tension: 0.4,
-            fill: true
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Kilometers'
+const dailyKmCtx = document.getElementById('dailyKmChart');
+if (dailyKmCtx) {
+    const dailyKmData = <?php echo json_encode(array_column($daily_km, 'total_km')); ?>;
+    const dailyKmLabels = <?php echo json_encode(array_map(function($d) { 
+        return date('M d', strtotime($d['date'])); 
+    }, $daily_km)); ?>;
+
+    console.log('Daily KM Data:', dailyKmData);
+    console.log('Daily KM Labels:', dailyKmLabels);
+
+    if (dailyKmData.length > 0) {
+        new Chart(dailyKmCtx, {
+            type: 'line',
+            data: {
+                labels: dailyKmLabels,
+                datasets: [{
+                    label: 'Daily Kilometers',
+                    data: dailyKmData,
+                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                    borderColor: 'rgba(99, 102, 241, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' km';
+                            }
+                        }
+                    }
                 }
             }
-        }
+        });
+    } else {
+        dailyKmCtx.parentElement.innerHTML = '<p style="text-align: center; padding: 40px; color: #999;">No data available for daily kilometers chart</p>';
     }
-});
+}
 
 // Maneuvers Chart
 const maneuversCtx = document.getElementById('maneuversChart').getContext('2d');
 new Chart(maneuversCtx, {
-    type: 'horizontalBar',
+    type: 'bar',
     data: {
         labels: <?php echo json_encode(array_column($maneuver_stats, 'maneuver_type')); ?>,
         datasets: [{
@@ -283,6 +299,9 @@ new Chart(maneuversCtx, {
         scales: {
             x: {
                 beginAtZero: true,
+                ticks: {
+                    precision: 0
+                },
                 title: {
                     display: true,
                     text: 'Number of Times'

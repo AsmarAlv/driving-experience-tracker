@@ -20,6 +20,20 @@ $id_trafficLevel = intval($_POST['id_trafficLevel'] ?? 0);
 $maneuvers = $_POST['maneuvers'] ?? [];
 $notes = trim($_POST['notes'] ?? '');
 
+// Store anonymized IDs in session (instead of raw database IDs)
+// This prevents exposing database structure
+if (!isset($_SESSION['saved_experiences'])) {
+    $_SESSION['saved_experiences'] = [];
+}
+
+$anonymized_data = [
+    'date' => $date,
+    'weather_code' => bin2hex(random_bytes(4)), // Anonymized instead of $id_weatherCondition
+    'road_code' => bin2hex(random_bytes(4)),    // Anonymized instead of $id_roadType
+    'timestamp' => time()
+];
+$_SESSION['saved_experiences'][] = $anonymized_data;
+
 // Validation
 $errors = [];
 
@@ -39,8 +53,8 @@ if ($start_time >= $finish_time) {
     $errors[] = "Finish time must be after start time.";
 }
 
-if ($km_traveled <= 0 || $km_traveled > 500) {
-    $errors[] = "Please enter a valid distance between 0.1 and 500 km.";
+if ($km_traveled <= 0 || $km_traveled > 2000) {
+    $errors[] = "Please enter a valid distance between 0.1 and 2000 km.";
 }
 
 if ($id_weatherCondition <= 0) {

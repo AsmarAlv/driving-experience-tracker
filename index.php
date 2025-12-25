@@ -41,7 +41,7 @@ try {
 ?>
 
 <section class="dashboard">
-    <h2 class="text-center mb-20">📊 Your Driving Statistics</h2>
+    <h2 class="text-center mb-20">Your Driving Statistics</h2>
     
     <?php if (isset($error_message)): ?>
         <div class="alert alert-error">
@@ -84,7 +84,7 @@ try {
     
     <!-- Recent Experiences -->
     <div class="table-container mt-20">
-        <h3>🕒 Recent Driving Experiences</h3>
+        <h3>Recent Driving Experiences</h3>
         
         <?php if (empty($recent_experiences)): ?>
             <div class="alert alert-info mt-20">
@@ -126,10 +126,10 @@ try {
     </div>
     
     <!-- Quick Actions -->
-    <div class="mt-20 text-center">
-        <a href="add_experience.php" class="btn btn-primary">➕ Add New Experience</a>
-        <a href="summary.php" class="btn btn-secondary">📋 View All Experiences</a>
-        <a href="statistics.php" class="btn btn-success">📈 View Statistics</a>
+    <div class="mt-20 text-center" style="display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap;">
+        <a href="add_experience.php" class="btn btn-primary">+ Add New Experience</a>
+        <a href="summary.php" class="btn btn-secondary">View All Experiences</a>
+        <a href="statistics.php" class="btn btn-success">View Statistics</a>
     </div>
 </section>
 

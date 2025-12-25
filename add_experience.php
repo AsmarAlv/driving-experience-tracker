@@ -3,7 +3,7 @@ $page_title = "Add Driving Experience";
 require_once 'config/database.php';
 require_once 'includes/header.php';
 
-// Fetch all dropdown data from database (NOT hardcoded!)
+// Fetch all dropdown data from database 
 try {
     // Weather conditions
     $stmt = $pdo->query("SELECT id_weatherCondition, weatherCondition FROM weatherCondition ORDER BY weatherCondition");
@@ -37,14 +37,14 @@ $current_time = date('H:i');
 
 <section class="add-experience">
     <div class="form-container">
-        <h2 class="text-center mb-20">➕ Add New Driving Experience</h2>
+        <h2 class="text-center mb-20">+ Add New Driving Experience</h2>
         
         <form action="save_experience.php" method="POST" id="experienceForm">
             
             <!-- Date and Time Section -->
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="date">📅 Date *</label>
+                    <label for="date">Date <span class="required">*</span></label>
                     <input 
                         type="date" 
                         id="date" 
@@ -56,7 +56,7 @@ $current_time = date('H:i');
                 </div>
                 
                 <div class="form-group">
-                    <label for="start_time">🕐 Start Time *</label>
+                    <label for="start_time">Start Time <span class="required">*</span></label>
                     <input 
                         type="time" 
                         id="start_time" 
@@ -67,7 +67,7 @@ $current_time = date('H:i');
                 </div>
                 
                 <div class="form-group">
-                    <label for="finish_time">🕑 Finish Time *</label>
+                    <label for="finish_time">Finish Time <span class="required">*</span></label>
                     <input 
                         type="time" 
                         id="finish_time" 
@@ -77,14 +77,14 @@ $current_time = date('H:i');
                 </div>
                 
                 <div class="form-group">
-                    <label for="km_traveled">📏 Kilometers Traveled *</label>
+                    <label for="km_traveled">Kilometers Traveled <span class="required">*</span></label>
                     <input 
                         type="number" 
                         id="km_traveled" 
                         name="km_traveled" 
                         step="0.1" 
                         min="0.1" 
-                        max="500"
+                        max="2000"
                         placeholder="Enter distance in km"
                         required
                     >
@@ -94,7 +94,7 @@ $current_time = date('H:i');
             <!-- Conditions Section -->
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="weather">🌤️ Weather Condition *</label>
+                    <label for="weather">Weather Condition <span class="required">*</span></label>
                     <select id="weather" name="id_weatherCondition" required>
                         <option value="">-- Select Weather --</option>
                         <?php foreach ($weather_conditions as $weather): ?>
@@ -106,7 +106,7 @@ $current_time = date('H:i');
                 </div>
                 
                 <div class="form-group">
-                    <label for="road_type">🛣️ Road Type *</label>
+                    <label for="road_type">Road Type <span class="required">*</span></label>
                     <select id="road_type" name="id_roadType" required>
                         <option value="">-- Select Road Type --</option>
                         <?php foreach ($road_types as $type): ?>
@@ -118,7 +118,7 @@ $current_time = date('H:i');
                 </div>
                 
                 <div class="form-group">
-                    <label for="road_condition">🛤️ Road Condition *</label>
+                    <label for="road_condition">Road Condition <span class="required">*</span></label>
                     <select id="road_condition" name="id_roadCondition" required>
                         <option value="">-- Select Road Condition --</option>
                         <?php foreach ($road_conditions as $condition): ?>
@@ -130,7 +130,7 @@ $current_time = date('H:i');
                 </div>
                 
                 <div class="form-group">
-                    <label for="traffic_level">🚦 Traffic Level *</label>
+                    <label for="traffic_level">Traffic Level <span class="required">*</span></label>
                     <select id="traffic_level" name="id_trafficLevel" required>
                         <option value="">-- Select Traffic Level --</option>
                         <?php foreach ($traffic_levels as $traffic): ?>
@@ -173,7 +173,7 @@ $current_time = date('H:i');
             
             <!-- Optional Notes -->
             <div class="form-group">
-                <label for="notes">📝 Notes (Optional)</label>
+                <label for="notes">Notes (Optional)</label>
                 <textarea 
                     id="notes" 
                     name="notes" 
@@ -183,9 +183,9 @@ $current_time = date('H:i');
             </div>
             
             <!-- Submit Button -->
-            <div class="text-center mt-20">
-                <button type="submit" class="btn btn-primary">💾 Save Experience</button>
-                <a href="index.php" class="btn btn-secondary">❌ Cancel</a>
+            <div class="text-center mt-20" style="display: flex; gap: 12px; justify-content: center; align-items: center;">
+                <button type="submit" class="btn btn-primary">Save Experience</button>
+                <a href="index.php" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
@@ -209,14 +209,14 @@ document.getElementById('experienceForm').addEventListener('submit', function(e)
     }
     
     const km = parseFloat(document.getElementById('km_traveled').value);
-    if (km <= 0 || km > 500) {
+    if (km <= 0 || km > 2000) {
         e.preventDefault();
-        alert('⚠️ Please enter a valid distance between 0.1 and 500 km!');
+        alert('⚠️ Please enter a valid distance between 0.1 and 2000 km!');
         return false;
     }
 });
 
-// Auto-calculate duration (optional enhancement)
+// Auto-calculate duration 
 document.getElementById('finish_time').addEventListener('change', function() {
     const startTime = document.getElementById('start_time').value;
     const finishTime = this.value;

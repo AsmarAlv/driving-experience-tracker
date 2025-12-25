@@ -18,7 +18,7 @@ try {
     $stmt->execute([$experience_id]);
     
     if ($stmt->rowCount() > 0) {
-        $_SESSION['success_message'] = "🗑️ Experience deleted successfully!";
+        $_SESSION['success_message'] = "Experience deleted successfully!";
     } else {
         $_SESSION['errors'] = ["Experience not found."];
     }

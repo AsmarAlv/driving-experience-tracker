@@ -60,17 +60,17 @@ try {
 ?>
 
 <section class="summary">
-    <h2 class="text-center mb-20">📋 All Driving Experiences</h2>
+    <h2 class="text-center mb-20">All Driving Experiences</h2>
     
     <!-- Total Kilometers Display -->
-    <div class="card text-center mb-20" style="max-width: 400px; margin: 0 auto 30px;">
-        <h3>🎯 Total Distance Traveled</h3>
-        <div class="card-stat" style="color: #8b5cf6;"><?php echo number_format($total_km, 1); ?> km</div>
+    <div class="card text-center mb-20" style="max-width: 100%; margin: 0 0 30px;">
+        <h3 class="text-center">Total Distance Traveled</h3>
+        <div class="card-stat text-center" style="color: var(--primary);"><?php echo number_format($total_km, 1); ?> km</div>
     </div>
     
     <?php if (empty($experiences)): ?>
         <div class="alert alert-info">
-            <p>📝 No driving experiences recorded yet.</p>
+            <p>No driving experiences recorded yet.</p>
             <a href="add_experience.php" class="btn btn-primary mt-20">Add Your First Experience</a>
         </div>
     <?php else: ?>
@@ -79,7 +79,7 @@ try {
         <div class="table-container desktop-table">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h3>All Experiences (<?php echo count($experiences); ?>)</h3>
-                <a href="add_experience.php" class="btn btn-primary">➕ Add New</a>
+                <a href="add_experience.php" class="btn btn-primary">+ Add New</a>
             </div>
             
             <table id="experiencesTable">
@@ -121,17 +121,17 @@ try {
                                 <?php echo $exp['maneuvers'] ? htmlspecialchars($exp['maneuvers']) : '—'; ?>
                             </td>
                             <td>
-                                <a href="edit_experience.php?id=<?php echo $exp['id_drivingExperience']; ?>" 
-                                   class="btn btn-secondary" 
-                                   style="padding: 5px 10px; font-size: 0.85rem;">
-                                    ✏️ Edit
-                                </a>
-                                <a href="delete_experience.php?id=<?php echo $exp['id_drivingExperience']; ?>" 
-                                   class="btn btn-danger" 
-                                   style="padding: 5px 10px; font-size: 0.85rem;"
-                                   onclick="return confirm('Are you sure you want to delete this experience?')">
-                                    🗑️ Delete
-                                </a>
+                                <div class="action-buttons">
+                                    <a href="edit_experience.php?id=<?php echo $exp['id_drivingExperience']; ?>" 
+                                       class="btn btn-secondary">
+                                        Edit
+                                    </a>
+                                    <a href="delete_experience.php?id=<?php echo $exp['id_drivingExperience']; ?>" 
+                                       class="btn btn-danger"
+                                       onclick="return confirm('Are you sure you want to delete this experience?')">
+                                        Delete
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -142,7 +142,7 @@ try {
         <!-- Mobile Cards View -->
         <div class="mobile-cards" style="display: none;">
             <div style="margin-bottom: 15px;">
-                <a href="add_experience.php" class="btn btn-primary" style="width: 100%;">➕ Add New Experience</a>
+                <a href="add_experience.php" class="btn btn-primary" style="width: 100%;">+ Add New Experience</a>
             </div>
             
             <?php foreach ($experiences as $exp): ?>
@@ -163,10 +163,10 @@ try {
                     
                     <div style="margin-top: 15px; display: flex; gap: 10px;">
                         <a href="edit_experience.php?id=<?php echo $exp['id_drivingExperience']; ?>" 
-                           class="btn btn-secondary" style="flex: 1;">✏️ Edit</a>
+                           class="btn btn-secondary" style="flex: 1;">Edit</a>
                         <a href="delete_experience.php?id=<?php echo $exp['id_drivingExperience']; ?>" 
                            class="btn btn-danger" style="flex: 1;"
-                           onclick="return confirm('Delete this experience?')">🗑️ Delete</a>
+                           onclick="return confirm('Delete this experience?')">Delete</a>
                     </div>
                 </div>
             <?php endforeach; ?>
